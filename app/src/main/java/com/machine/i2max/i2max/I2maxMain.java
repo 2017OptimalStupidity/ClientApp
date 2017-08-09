@@ -19,6 +19,7 @@ import android.widget.TextView;
 
 import com.dd.processbutton.iml.ActionProcessButton;
 import com.machine.i2max.i2max.Control.I2maxController;
+import com.machine.i2max.i2max.Control.RealmController;
 
 import static com.machine.i2max.i2max.Settings.DefineManager.LOG_LEVEL_ERROR;
 import static com.machine.i2max.i2max.Settings.DefineManager.LOG_LEVEL_INFO;
@@ -35,6 +36,7 @@ public class I2maxMain extends AppCompatActivity {
     ProgressBar progressUploading;
     EditText etxtSellingData, etxtForecastDay;
     ActionProcessButton btnUploadData;
+    RealmController realmController;
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -98,6 +100,8 @@ public class I2maxMain extends AppCompatActivity {
                 else {
                     PrintLog("I2maxMain", "onClick", "No forecast day", LOG_LEVEL_WARN);
                 }
+                realmController.AddNewTodayData(todaySellingData);
+                realmController.GetSellingDatas();
             }
         });
 
@@ -137,6 +141,7 @@ public class I2maxMain extends AppCompatActivity {
         dynamicAppView.addView(graphView);
 
         i2maxController = new I2maxController(handlingWithController);
+        realmController = new RealmController(getApplicationContext());
 
         VisibleShareView();
         InvisibleProgress();
