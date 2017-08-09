@@ -14,8 +14,13 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 import static com.machine.i2max.i2max.Settings.DefineManager.COMMUNICATE_CONTENT_TYPE;
+import static com.machine.i2max.i2max.Settings.DefineManager.CONNECTION_SUCCESSFULL;
+import static com.machine.i2max.i2max.Settings.DefineManager.INVISIBLE_LOADING_PROGRESS;
+import static com.machine.i2max.i2max.Settings.DefineManager.LOG_LEVEL_ERROR;
 import static com.machine.i2max.i2max.Settings.DefineManager.LOG_LEVEL_INFO;
+import static com.machine.i2max.i2max.Settings.DefineManager.LOG_LEVEL_WARN;
 import static com.machine.i2max.i2max.Settings.DefineManager.SERVER_DOMAIN_NAME;
+import static com.machine.i2max.i2max.Settings.DefineManager.VISIBLE_LOADING_PROGRESS;
 import static com.machine.i2max.i2max.Utils.LogManager.PrintLog;
 
 /**
@@ -50,6 +55,9 @@ public class NetworkManager{
     }
 
     public void UploadDataProcess(double data[], int day){
+
+        handlingWithController.sendEmptyMessage(VISIBLE_LOADING_PROGRESS);
+
         NetworkManagerRoute retrofitInterface = CreateRetrofitConnector().create(NetworkManagerRoute.class);
         UploadDataRequest uploadDataRequest = new UploadDataRequest();
         uploadDataRequest.setData(data);
@@ -59,12 +67,24 @@ public class NetworkManager{
         calling.enqueue(new Callback<UploadDataResponse>() {
             @Override
             public void onResponse(Call<UploadDataResponse> call, Response<UploadDataResponse> response) {
-                PrintLog("NetworkManager", "UploadDataProcess", "ok response is: " + response.raw().message(), LOG_LEVEL_INFO);
+                handlingWithController.sendEmptyMessage(INVISIBLE_LOADING_PROGRESS);
+                if(response.code() == CONNECTION_SUCCESSFULL) {
+                    try {
+                        PrintLog("NetworkManager", "UploadDataProcess", "ok response is: " + response.raw().body().string(), LOG_LEVEL_INFO);
+                    }
+                    catch (Exception err) {
+                        PrintLog("NetworkManager", "UploadDataProcess", "Error: " + err.getMessage(), LOG_LEVEL_ERROR);
+                    }
+                }
+                else {
+                    PrintLog("NetworkManager", "UploadDataProcess", "wrong response is: " + response.raw().message(), LOG_LEVEL_WARN);
+                }
             }
 
             @Override
             public void onFailure(Call<UploadDataResponse> call, Throwable t) {
-                PrintLog("NetworkManager", "UploadDataProcess", "fail response is: " + t.getMessage(), LOG_LEVEL_INFO);
+                PrintLog("NetworkManager", "UploadDataProcess", "fail response is: " + t.getMessage(), LOG_LEVEL_WARN);
+                handlingWithController.sendEmptyMessage(INVISIBLE_LOADING_PROGRESS);
             }
         });
     }

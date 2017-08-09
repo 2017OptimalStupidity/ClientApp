@@ -15,5 +15,10 @@ public class DefineManager {
             LOG_LEVEL_DEBUG = 1,
             LOG_LEVEL_INFO = 2,
             LOG_LEVEL_WARN = 3,
-            LOG_LEVEL_ERROR = 4;
+            LOG_LEVEL_ERROR = 4,
+
+            VISIBLE_LOADING_PROGRESS = 1,
+            INVISIBLE_LOADING_PROGRESS = 0,
+
+            CONNECTION_SUCCESSFULL = 200;
 }
