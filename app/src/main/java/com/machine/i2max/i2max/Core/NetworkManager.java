@@ -5,6 +5,8 @@ import android.os.Handler;
 import com.machine.i2max.i2max.Model.UploadDataRequest;
 import com.machine.i2max.i2max.Model.UploadDataResponse;
 
+import okhttp3.OkHttpClient;
+import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -28,10 +30,22 @@ public class NetworkManager{
         this.handlingWithController = handlingWithController;
     }
 
+    private static OkHttpClient createOkHttpClient() {
+        OkHttpClient.Builder builder = new OkHttpClient.Builder();
+        builder.followRedirects(false);
+
+        HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
+        interceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
+        builder.addInterceptor(interceptor);
+        //builder.addInterceptor(receivedCookiesInterceptor);
+        return builder.build();
+    }
+
     public Retrofit CreateRetrofitConnector() {
         return new Retrofit.Builder()
                 .baseUrl("http://" + SERVER_DOMAIN_NAME + "/")
                 .addConverterFactory(GsonConverterFactory.create())
+                .client(createOkHttpClient())
                 .build();
     }
 

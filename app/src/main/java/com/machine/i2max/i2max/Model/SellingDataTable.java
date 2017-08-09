@@ -11,7 +11,15 @@ import io.realm.RealmObject;
 public class SellingDataTable extends RealmObject {
 
     public Date todaysDate;
-    public int sellingData;
+    public double sellingData;
+
+    public double getSellingData() {
+        return sellingData;
+    }
+
+    public void setSellingData(double sellingData) {
+        this.sellingData = sellingData;
+    }
 
     public Date getTodaysDate() {
         return todaysDate;
@@ -21,11 +29,4 @@ public class SellingDataTable extends RealmObject {
         this.todaysDate = todaysDate;
     }
 
-    public int getSellingData() {
-        return sellingData;
-    }
-
-    public void setSellingData(int sellingData) {
-        this.sellingData = sellingData;
-    }
 }

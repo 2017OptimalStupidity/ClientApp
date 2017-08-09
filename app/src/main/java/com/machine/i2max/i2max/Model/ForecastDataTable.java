@@ -1,5 +1,6 @@
 package com.machine.i2max.i2max.Model;
 
+import io.realm.RealmList;
 import io.realm.RealmObject;
 
 /**
@@ -9,13 +10,13 @@ import io.realm.RealmObject;
 public class ForecastDataTable extends RealmObject {
 
     public int progressId;
-    public double forecastedData;
+    public RealmList<RealmDouble> forecastedData;
 
-    public double getForecastedData() {
+    public RealmList<RealmDouble> getForecastedData() {
         return forecastedData;
     }
 
-    public void setForecastedData(double forecastedData) {
+    public void setForecastedData(RealmList<RealmDouble> forecastedData) {
         this.forecastedData = forecastedData;
     }
 

@@ -101,7 +101,7 @@ public class I2maxMain extends AppCompatActivity {
                     PrintLog("I2maxMain", "onClick", "No forecast day", LOG_LEVEL_WARN);
                 }
                 realmController.AddNewTodayData(todaySellingData);
-                realmController.GetSellingDatas();
+                i2maxController.UploadData(realmController.GetSellingDatas(), todayForecastDay);
             }
         });
 
