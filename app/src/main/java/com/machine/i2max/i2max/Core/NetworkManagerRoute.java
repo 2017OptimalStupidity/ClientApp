@@ -25,11 +25,11 @@ public interface NetworkManagerRoute {
             .addConverterFactory(GsonConverterFactory.create())
             .build();
 
-    @POST("forecast")
+    @POST("forecast/")
     Call<DownloadForecastDataResponse>  DownloadForecastProcess(@Header("Content-Type") String contentType, @Body DownloadForecastDataRequest downloadForecastDataRequest);
 
 
-    @POST("upload")
+    @POST("upload/")
     Call<UploadDataResponse> UploadDataProcess(@Header("Content-Type") String contentType, @Body UploadDataRequest uploadDataRequest);
 
 }
