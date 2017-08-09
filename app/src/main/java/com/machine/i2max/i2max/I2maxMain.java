@@ -20,7 +20,9 @@ import android.widget.TextView;
 import com.dd.processbutton.iml.ActionProcessButton;
 import com.machine.i2max.i2max.Control.I2maxController;
 
+import static com.machine.i2max.i2max.Settings.DefineManager.LOG_LEVEL_ERROR;
 import static com.machine.i2max.i2max.Settings.DefineManager.LOG_LEVEL_INFO;
+import static com.machine.i2max.i2max.Settings.DefineManager.LOG_LEVEL_WARN;
 import static com.machine.i2max.i2max.Utils.LogManager.PrintLog;
 
 public class I2maxMain extends AppCompatActivity {
@@ -68,14 +70,49 @@ public class I2maxMain extends AppCompatActivity {
         btnUploadData.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                String sellingData = etxtSellingData.getText().toString(),
+                        forecastDay = etxtForecastDay.getText().toString();
 
+                int todaySellingData = 0, todayForecastDay = 0;
+
+                if(sellingData != null && sellingData != "") {
+                    try {
+                        todaySellingData = Integer.parseInt(sellingData);
+                    }
+                    catch (Exception err) {
+                        PrintLog("I2maxMain", "onClick", "Error: " + err.getMessage(), LOG_LEVEL_ERROR);
+                    }
+                }
+                else {
+                    PrintLog("I2maxMain", "onClick", "No selling data", LOG_LEVEL_WARN);
+                }
+
+                if(forecastDay != null && forecastDay != "") {
+                    try {
+                        todayForecastDay = Integer.parseInt(forecastDay);
+                    }
+                    catch (Exception err) {
+                        PrintLog("I2maxMain", "onClick", "Error: " + err.getMessage(), LOG_LEVEL_ERROR);
+                    }
+                }
+                else {
+                    PrintLog("I2maxMain", "onClick", "No forecast day", LOG_LEVEL_WARN);
+                }
             }
         });
 
         etxtSellingData.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView textView, int i, KeyEvent keyEvent) {
-                PrintLog("I2maxMain", "afterTextChanged", "Confirmed text: " + etxtSellingData.getText(), LOG_LEVEL_INFO);
+                PrintLog("I2maxMain", "onEditorAction", "Confirmed text: " + etxtSellingData.getText(), LOG_LEVEL_INFO);
+                return true;
+            }
+        });
+
+        etxtForecastDay.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView textView, int i, KeyEvent keyEvent) {
+                PrintLog("I2maxMain", "onEditorAction", "Confirmed text: " + etxtForecastDay.getText(), LOG_LEVEL_INFO);
                 return true;
             }
         });
@@ -102,6 +139,17 @@ public class I2maxMain extends AppCompatActivity {
         i2maxController = new I2maxController(handlingWithController);
 
         VisibleShareView();
+        InvisibleProgress();
+    }
+
+    public void VisibleProgress() {
+        progressUploading.setVisibility(View.VISIBLE);
+        btnUploadData.setProgress(1);
+    }
+
+    public void InvisibleProgress() {
+        progressUploading.setVisibility(View.INVISIBLE);
+        btnUploadData.setProgress(0);
     }
 
     public void VisibleShareView() {
