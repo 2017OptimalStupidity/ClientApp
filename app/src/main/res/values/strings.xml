@@ -7,4 +7,8 @@
     <!-- i2max_main_layout -->
     <string name="ShareData">Share</string>
     <string name="GraphData">Graph</string>
+
+    <!-- -->
+    <string name="SellingData">Selling data</string>
+    <string name="ForecastDay">Forecast day</string>
 </resources>

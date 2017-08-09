@@ -20,6 +20,10 @@ public class I2maxController {
         networkManager = new NetworkManager(handlingWithNetworkManager);
     }
 
+    public void UploadData() {
+
+    }
+
     Handler handlingWithNetworkManager = new Handler() {
 
         @Override

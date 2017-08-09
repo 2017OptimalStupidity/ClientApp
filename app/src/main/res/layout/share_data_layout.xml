@@ -6,7 +6,7 @@
     android:background="@color/skyBlue">
 
     <ProgressBar
-        android:id="@+id/progressBar"
+        android:id="@+id/progressUploading"
         style="?android:attr/progressBarStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -18,12 +18,31 @@
         android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-        >
+        android:id="@+id/materialTextField">
 
         <EditText
+            android:id="@+id/etxtSellingData"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Selling data"
+            android:hint="@string/SellingData"
+            android:inputType="number"
+            android:textColor="#333"
+            android:textColorHint="#666"
+            android:textSize="15sp" />
+
+    </com.github.florent37.materialtextfield.MaterialTextField>
+
+    <com.github.florent37.materialtextfield.MaterialTextField
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/materialTextField"
+        android:layout_alignStart="@+id/materialTextField">
+
+        <EditText
+            android:id="@+id/etxtForecastDay"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/ForecastDay"
             android:inputType="number"
             android:textColor="#333"
             android:textColorHint="#666"
@@ -33,7 +52,7 @@
 
     <com.dd.processbutton.iml.ActionProcessButton
         android:layout_alignParentBottom="true"
-        android:id="@+id/btnSignIn"
+        android:id="@+id/btnUploadData"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Upload data"
