@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.Date;
 
 import io.realm.Realm;
+import io.realm.RealmConfiguration;
 
 import static com.machine.i2max.i2max.Settings.DefineManager.LOG_LEVEL_ERROR;
 import static com.machine.i2max.i2max.Settings.DefineManager.LOG_LEVEL_INFO;
@@ -21,6 +22,7 @@ public class RealmController {
 
     Context context;
     Realm realmInstance;
+    RealmConfiguration realmConfiguration;
 
     public RealmController(Context context) {
         try {
@@ -30,7 +32,14 @@ public class RealmController {
 
             PrintLog("RealmController", "RealmController", "Init realm", LOG_LEVEL_INFO);
 
-            realmInstance = Realm.getDefaultInstance();
+            realmConfiguration = new RealmConfiguration.Builder()
+                    .schemaVersion(1)
+                    .deleteRealmIfMigrationNeeded()
+                    .build();
+
+            Realm.setDefaultConfiguration(realmConfiguration);
+            realmInstance = Realm.getInstance(realmConfiguration);
+//            realmInstance = Realm.getDefaultInstance();
 
             PrintLog("RealmController", "RealmController", "Getting realm instance", LOG_LEVEL_INFO);
         }
