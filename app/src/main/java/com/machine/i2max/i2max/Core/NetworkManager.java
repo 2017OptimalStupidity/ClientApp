@@ -1,5 +1,7 @@
 package com.machine.i2max.i2max.Core;
 
+import android.os.Handler;
+
 import com.machine.i2max.i2max.Model.UploadDataRequest;
 import com.machine.i2max.i2max.Model.UploadDataResponse;
 
@@ -19,6 +21,12 @@ import static com.machine.i2max.i2max.Utils.LogManager.PrintLog;
  */
 
 public class NetworkManager{
+
+    Handler handlingWithController;
+
+    public NetworkManager(Handler handlingWithController) {
+        this.handlingWithController = handlingWithController;
+    }
 
     public Retrofit CreateRetrofitConnector() {
         return new Retrofit.Builder()
