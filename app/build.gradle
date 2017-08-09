@@ -1,4 +1,5 @@
 apply plugin: 'com.android.application'
+apply plugin: 'realm-android'
 
 android {
     compileSdkVersion 26
@@ -31,4 +32,5 @@ dependencies {
     compile 'com.squareup.retrofit2:converter-gson:2.2.0'
     compile 'com.github.florent37:materialtextfield:1.0.7'
     compile 'com.diogobernardino:williamchart:2.5.0'
+    compile 'com.hannesdorfmann.smoothprogressbar:library:1.0.0'
 }
