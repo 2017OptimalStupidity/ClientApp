@@ -70,7 +70,7 @@ public class NetworkManager{
                 handlingWithController.sendEmptyMessage(INVISIBLE_LOADING_PROGRESS);
                 if(response.code() == CONNECTION_SUCCESSFULL) {
                     try {
-                        PrintLog("NetworkManager", "UploadDataProcess", "ok response is: " + response.raw().body().string(), LOG_LEVEL_INFO);
+                        PrintLog("NetworkManager", "UploadDataProcess", "ok response is: " + response.body().getResult(), LOG_LEVEL_INFO);
                     }
                     catch (Exception err) {
                         PrintLog("NetworkManager", "UploadDataProcess", "Error: " + err.getMessage(), LOG_LEVEL_ERROR);
