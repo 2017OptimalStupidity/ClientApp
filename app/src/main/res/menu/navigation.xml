@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/navigationShare"
+        android:icon="@drawable/ic_share_black_24dp"
+        android:title="@string/ShareData" />
+
+    <item
+        android:id="@+id/navigationGraph"
+        android:icon="@drawable/ic_trending_up_black_24dp"
+        android:title="@string/GraphData" />
+
+</menu>
