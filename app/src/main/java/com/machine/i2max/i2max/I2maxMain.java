@@ -17,6 +17,7 @@ import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.baoyz.widget.PullRefreshLayout;
 import com.dd.processbutton.iml.ActionProcessButton;
 import com.machine.i2max.i2max.Control.I2maxController;
 import com.machine.i2max.i2max.Control.RealmController;
@@ -39,6 +40,7 @@ public class I2maxMain extends AppCompatActivity {
     EditText etxtSellingData, etxtForecastDay;
     ActionProcessButton btnUploadData;
     RealmController realmController;
+    PullRefreshLayout swipeRefreshLayout;
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -122,6 +124,13 @@ public class I2maxMain extends AppCompatActivity {
                 return true;
             }
         });
+
+        swipeRefreshLayout.setOnRefreshListener(new PullRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                PrintLog("I2maxMain", "onRefresh", "Start refresh", LOG_LEVEL_INFO);
+            }
+        });
     }
 
     public void Init() {
@@ -136,8 +145,10 @@ public class I2maxMain extends AppCompatActivity {
         etxtSellingData = (EditText) shareView.findViewById(R.id.etxtSellingData);
         etxtForecastDay = (EditText) shareView.findViewById(R.id.etxtForecastDay);
         btnUploadData = (ActionProcessButton) shareView.findViewById(R.id.btnUploadData);
+        swipeRefreshLayout = (PullRefreshLayout) graphView.findViewById(R.id.swipeRefreshLayout);
 
         btnUploadData.setMode(ActionProcessButton.Mode.ENDLESS);
+        swipeRefreshLayout.setRefreshStyle(PullRefreshLayout.STYLE_SMARTISAN);
 
         dynamicAppView.addView(shareView);
         dynamicAppView.addView(graphView);
