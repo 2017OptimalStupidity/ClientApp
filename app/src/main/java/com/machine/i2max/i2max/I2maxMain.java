@@ -18,6 +18,8 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.baoyz.widget.PullRefreshLayout;
+import com.db.chart.model.LineSet;
+import com.db.chart.view.LineChartView;
 import com.dd.processbutton.iml.ActionProcessButton;
 import com.machine.i2max.i2max.Control.I2maxController;
 import com.machine.i2max.i2max.Control.RealmController;
@@ -41,6 +43,7 @@ public class I2maxMain extends AppCompatActivity {
     ActionProcessButton btnUploadData;
     RealmController realmController;
     PullRefreshLayout swipeRefreshLayout;
+    LineChartView lineChart;
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -146,12 +149,17 @@ public class I2maxMain extends AppCompatActivity {
         etxtForecastDay = (EditText) shareView.findViewById(R.id.etxtForecastDay);
         btnUploadData = (ActionProcessButton) shareView.findViewById(R.id.btnUploadData);
         swipeRefreshLayout = (PullRefreshLayout) graphView.findViewById(R.id.swipeRefreshLayout);
+        lineChart = (LineChartView)graphView.findViewById(R.id.lineChart);
 
         btnUploadData.setMode(ActionProcessButton.Mode.ENDLESS);
         swipeRefreshLayout.setRefreshStyle(PullRefreshLayout.STYLE_SMARTISAN);
 
         dynamicAppView.addView(shareView);
         dynamicAppView.addView(graphView);
+
+        LineSet dataset = new LineSet(new String[]{"2017-08-11", "2017-08-12", "2017-08-13"}, new float[]{1.0f, 2.0f, 0.5f});
+        lineChart.addData(dataset);
+        lineChart.show();
 
         i2maxController = new I2maxController(handlingWithController);
         realmController = new RealmController(getApplicationContext());

@@ -13,11 +13,10 @@
             <RelativeLayout
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent">
-                <TextView
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:text="test"
-                    />
+                <com.db.chart.view.LineChartView
+                    android:id="@+id/lineChart"
+                    android:layout_width="match_parent"
+                    android:layout_height="300dp"/>
             </RelativeLayout>
         </ScrollView>
     </com.baoyz.widget.PullRefreshLayout>
