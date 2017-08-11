@@ -24,6 +24,7 @@ import com.dd.processbutton.iml.ActionProcessButton;
 import com.machine.i2max.i2max.Control.I2maxController;
 import com.machine.i2max.i2max.Control.RealmController;
 
+import static com.machine.i2max.i2max.Settings.DefineManager.DISABLE_PULLING_PROGRESS;
 import static com.machine.i2max.i2max.Settings.DefineManager.INVISIBLE_LOADING_PROGRESS;
 import static com.machine.i2max.i2max.Settings.DefineManager.LOG_LEVEL_ERROR;
 import static com.machine.i2max.i2max.Settings.DefineManager.LOG_LEVEL_INFO;
@@ -131,6 +132,7 @@ public class I2maxMain extends AppCompatActivity {
         swipeRefreshLayout.setOnRefreshListener(new PullRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
+                i2maxController.PullingData(2);
                 PrintLog("I2maxMain", "onRefresh", "Start refresh", LOG_LEVEL_INFO);
             }
         });
@@ -188,6 +190,11 @@ public class I2maxMain extends AppCompatActivity {
         graphView.setVisibility(View.VISIBLE);
     }
 
+    public void DisablePullingProcess() {
+        swipeRefreshLayout.setRefreshing(false);
+        PrintLog("I2maxMain", "DisablePullingProcess", "process ui disabled", LOG_LEVEL_INFO);
+    }
+
     Handler handlingWithController = new Handler(){
 
         @Override
@@ -200,6 +207,9 @@ public class I2maxMain extends AppCompatActivity {
                     break;
                 case INVISIBLE_LOADING_PROGRESS:
                     InvisibleProgress();
+                    break;
+                case DISABLE_PULLING_PROGRESS:
+                    DisablePullingProcess();
                     break;
                 default:
                     break;

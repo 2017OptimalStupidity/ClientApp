@@ -19,6 +19,7 @@ public class DefineManager {
 
             VISIBLE_LOADING_PROGRESS = 1,
             INVISIBLE_LOADING_PROGRESS = 0,
+            DISABLE_PULLING_PROGRESS = 2,
 
             CONNECTION_SUCCESSFULL = 200;
 }

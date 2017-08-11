@@ -2,6 +2,8 @@ package com.machine.i2max.i2max.Core;
 
 import android.os.Handler;
 
+import com.machine.i2max.i2max.Model.DownloadForecastDataRequest;
+import com.machine.i2max.i2max.Model.DownloadForecastDataResponse;
 import com.machine.i2max.i2max.Model.UploadDataRequest;
 import com.machine.i2max.i2max.Model.UploadDataResponse;
 
@@ -15,6 +17,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 import static com.machine.i2max.i2max.Settings.DefineManager.COMMUNICATE_CONTENT_TYPE;
 import static com.machine.i2max.i2max.Settings.DefineManager.CONNECTION_SUCCESSFULL;
+import static com.machine.i2max.i2max.Settings.DefineManager.DISABLE_PULLING_PROGRESS;
 import static com.machine.i2max.i2max.Settings.DefineManager.INVISIBLE_LOADING_PROGRESS;
 import static com.machine.i2max.i2max.Settings.DefineManager.LOG_LEVEL_ERROR;
 import static com.machine.i2max.i2max.Settings.DefineManager.LOG_LEVEL_INFO;
@@ -86,6 +89,37 @@ public class NetworkManager{
             public void onFailure(Call<UploadDataResponse> call, Throwable t) {
                 PrintLog("NetworkManager", "UploadDataProcess", "fail response is: " + t.getMessage(), LOG_LEVEL_WARN);
                 handlingWithController.sendEmptyMessage(INVISIBLE_LOADING_PROGRESS);
+            }
+        });
+    }
+
+    public void DownloadForecastProcess(int processId) {
+        NetworkManagerRoute retrofitInterface = CreateRetrofitConnector().create(NetworkManagerRoute.class);
+
+        DownloadForecastDataRequest downloadForecastDataRequest = new DownloadForecastDataRequest();
+        downloadForecastDataRequest.setProcessId(processId);
+
+        Call<DownloadForecastDataResponse> calling = retrofitInterface.DownloadForecastProcess(COMMUNICATE_CONTENT_TYPE, downloadForecastDataRequest);
+        calling.enqueue(new Callback<DownloadForecastDataResponse>() {
+            @Override
+            public void onResponse(Call<DownloadForecastDataResponse> call, Response<DownloadForecastDataResponse> response) {
+                handlingWithController.sendEmptyMessage(DISABLE_PULLING_PROGRESS);
+                if(response.code() == CONNECTION_SUCCESSFULL) {
+                    try {
+                        PrintLog("NetworkManager", "DownloadForecastProcess", "ok response is: " + response.body().getStatus(), LOG_LEVEL_INFO);
+                    } catch (Exception err) {
+                        PrintLog("NetworkManager", "DownloadForecastProcess", "Error: " + err.getMessage(), LOG_LEVEL_ERROR);
+                    }
+                }
+                else {
+                    PrintLog("NetworkManager", "DownloadForecastProcess", "wrong response is: " + response.raw().message(), LOG_LEVEL_WARN);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<DownloadForecastDataResponse> call, Throwable t) {
+                handlingWithController.sendEmptyMessage(DISABLE_PULLING_PROGRESS);
+                PrintLog("NetworkManager", "DownloadForecastProcess", "fail response is: " + t.getMessage(), LOG_LEVEL_WARN);
             }
         });
     }

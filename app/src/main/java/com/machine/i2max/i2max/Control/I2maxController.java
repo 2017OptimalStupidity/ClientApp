@@ -10,6 +10,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
+import static com.machine.i2max.i2max.Settings.DefineManager.DISABLE_PULLING_PROGRESS;
 import static com.machine.i2max.i2max.Settings.DefineManager.INVISIBLE_LOADING_PROGRESS;
 import static com.machine.i2max.i2max.Settings.DefineManager.LOG_LEVEL_INFO;
 import static com.machine.i2max.i2max.Settings.DefineManager.LOG_LEVEL_WARN;
@@ -54,6 +55,10 @@ public class I2maxController {
         networkManager.UploadDataProcess(eachDaysOfSellingData, eachDaysOfSellingDate, forecastDay);
     }
 
+    public void PullingData(int processId) {
+        networkManager.DownloadForecastProcess(processId);
+    }
+
     Handler handlingWithNetworkManager = new Handler() {
 
         @Override
@@ -66,6 +71,8 @@ public class I2maxController {
                 case INVISIBLE_LOADING_PROGRESS:
                     handlingWithController.sendEmptyMessage(INVISIBLE_LOADING_PROGRESS);
                     break;
+                case DISABLE_PULLING_PROGRESS:
+                    handlingWithController.sendEmptyMessage(DISABLE_PULLING_PROGRESS);
                 default:
                     break;
             }
