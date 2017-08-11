@@ -11,6 +11,7 @@ public class ForecastDataTable extends RealmObject {
 
     public int progressId;
     public RealmList<RealmDouble> forecastedData;
+    public RealmList<RealmDate> forecastedDate;
 
     public RealmList<RealmDouble> getForecastedData() {
         return forecastedData;

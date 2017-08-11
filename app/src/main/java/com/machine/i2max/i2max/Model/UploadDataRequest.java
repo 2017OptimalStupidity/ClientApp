@@ -7,7 +7,16 @@ package com.machine.i2max.i2max.Model;
 public class UploadDataRequest {
 
     public double Data[];
+    public String Date[];
     public int Day;
+
+    public String[] getDate() {
+        return Date;
+    }
+
+    public void setDate(String[] date) {
+        Date = date;
+    }
 
     public double[] getData() {
         return Data;

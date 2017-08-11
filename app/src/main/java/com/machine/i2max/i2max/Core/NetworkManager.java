@@ -54,7 +54,7 @@ public class NetworkManager{
                 .build();
     }
 
-    public void UploadDataProcess(double data[], int day){
+    public void UploadDataProcess(double data[], String date[], int day){
 
         handlingWithController.sendEmptyMessage(VISIBLE_LOADING_PROGRESS);
 
@@ -62,6 +62,7 @@ public class NetworkManager{
         UploadDataRequest uploadDataRequest = new UploadDataRequest();
         uploadDataRequest.setData(data);
         uploadDataRequest.setDay(day);
+        uploadDataRequest.setDate(date);
 
         Call<UploadDataResponse> calling = retrofitInterface.UploadDataProcess(COMMUNICATE_CONTENT_TYPE, uploadDataRequest);
         calling.enqueue(new Callback<UploadDataResponse>() {

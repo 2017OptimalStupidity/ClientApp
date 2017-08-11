@@ -6,7 +6,9 @@ import android.os.Message;
 import com.machine.i2max.i2max.Core.NetworkManager;
 import com.machine.i2max.i2max.Model.SellingDataTable;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 import static com.machine.i2max.i2max.Settings.DefineManager.INVISIBLE_LOADING_PROGRESS;
 import static com.machine.i2max.i2max.Settings.DefineManager.LOG_LEVEL_INFO;
@@ -34,6 +36,7 @@ public class I2maxController {
     public void UploadData(ArrayList<SellingDataTable> sellingDataList, int forecastDay) {
         int sizeOfSellingData = sellingDataList.size(), i;
         double[] eachDaysOfSellingData = new double[sizeOfSellingData];
+        String[] eachDaysOfSellingDate = new String[sizeOfSellingData];
         PrintLog("I2maxController", "UploadData", "size of selling data: " + sizeOfSellingData, LOG_LEVEL_INFO);
         if(forecastDay >= sizeOfSellingData || forecastDay <= 0) {
             PrintLog("I2maxController", "UploadData", "Wrong forcast day accepted", LOG_LEVEL_WARN);
@@ -43,9 +46,12 @@ public class I2maxController {
         PrintLog("I2maxController", "UploadData", "preparing to upload data", LOG_LEVEL_INFO);
         for(i = 0; i < sizeOfSellingData; i += 1) {
             eachDaysOfSellingData[i] = sellingDataList.get(i).getSellingData();
+            Date indexOfDate = sellingDataList.get(i).getTodaysDate();
+            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+            eachDaysOfSellingDate[i] = dateFormat.format(indexOfDate).toString();
         }
         PrintLog("I2maxController", "UploadData", "uploading process start", LOG_LEVEL_INFO);
-        networkManager.UploadDataProcess(eachDaysOfSellingData, forecastDay);
+        networkManager.UploadDataProcess(eachDaysOfSellingData, eachDaysOfSellingDate, forecastDay);
     }
 
     Handler handlingWithNetworkManager = new Handler() {

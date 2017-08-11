@@ -8,6 +8,15 @@ public class DownloadForecastDataResponse {
 
     public String Status;
     public Double Result[];
+    public String Date[];
+
+    public String[] getDate() {
+        return Date;
+    }
+
+    public void setDate(String[] date) {
+        Date = date;
+    }
 
     public String getStatus() {
         return Status;
