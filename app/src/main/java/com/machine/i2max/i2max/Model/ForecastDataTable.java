@@ -10,8 +10,17 @@ import io.realm.RealmObject;
 public class ForecastDataTable extends RealmObject {
 
     public int progressId;
+    public String status;
     public RealmList<RealmDouble> forecastedData;
     public RealmList<RealmString> forecastedDate;
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
 
     public RealmList<RealmDouble> getForecastedData() {
         return forecastedData;
