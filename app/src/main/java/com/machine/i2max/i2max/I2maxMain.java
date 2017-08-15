@@ -160,7 +160,7 @@ public class I2maxMain extends AppCompatActivity {
 
 //        LineSet dataset = new LineSet(new String[]{"2017-08-11", "2017-08-12", "2017-08-13"}, new float[]{1.0f, 2.0f, 0.5f});
 //        lineChart.addData(dataset);
-        lineChart.show();
+//        lineChart.show();
 
         i2maxController = new I2maxController(handlingWithController);
         realmController = new RealmController(getApplicationContext());

@@ -7,7 +7,7 @@ package com.machine.i2max.i2max.Model;
 public class DownloadForecastDataResponse {
 
     public String Status;
-    public Double Result[];
+    public double Result[];
     public String Date[];
 
     public String[] getDate() {
@@ -26,11 +26,11 @@ public class DownloadForecastDataResponse {
         Status = status;
     }
 
-    public Double[] getResult() {
+    public double[] getResult() {
         return Result;
     }
 
-    public void setResult(Double[] result) {
+    public void setResult(double[] result) {
         Result = result;
     }
 }

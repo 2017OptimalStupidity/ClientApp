@@ -1,6 +1,8 @@
 package com.machine.i2max.i2max.Core;
 
+import android.os.Bundle;
 import android.os.Handler;
+import android.os.Message;
 
 import com.machine.i2max.i2max.Model.DownloadForecastDataRequest;
 import com.machine.i2max.i2max.Model.DownloadForecastDataResponse;
@@ -18,6 +20,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 import static com.machine.i2max.i2max.Settings.DefineManager.COMMUNICATE_CONTENT_TYPE;
 import static com.machine.i2max.i2max.Settings.DefineManager.CONNECTION_SUCCESSFULL;
 import static com.machine.i2max.i2max.Settings.DefineManager.DISABLE_PULLING_PROGRESS;
+import static com.machine.i2max.i2max.Settings.DefineManager.FORECAST_DATA_RECEIVED;
 import static com.machine.i2max.i2max.Settings.DefineManager.INVISIBLE_LOADING_PROGRESS;
 import static com.machine.i2max.i2max.Settings.DefineManager.LOG_LEVEL_ERROR;
 import static com.machine.i2max.i2max.Settings.DefineManager.LOG_LEVEL_INFO;
@@ -107,6 +110,18 @@ public class NetworkManager{
                 if(response.code() == CONNECTION_SUCCESSFULL) {
                     try {
                         PrintLog("NetworkManager", "DownloadForecastProcess", "ok response is: " + response.body().getStatus(), LOG_LEVEL_INFO);
+
+                        Bundle recvDataBundle = new Bundle();
+                        recvDataBundle.putStringArray("date", response.body().getDate());
+                        recvDataBundle.putDoubleArray("result", response.body().getResult());
+                        recvDataBundle.putString("status", response.body().getStatus());
+
+                        Message forecastMessage = new Message();
+                        forecastMessage.what = FORECAST_DATA_RECEIVED;
+                        forecastMessage.setData(recvDataBundle);
+
+                        handlingWithController.sendMessage(forecastMessage);
+                        PrintLog("NetworkManager", "DownloadForecastProcess", "received data sended", LOG_LEVEL_INFO);
                     } catch (Exception err) {
                         PrintLog("NetworkManager", "DownloadForecastProcess", "Error: " + err.getMessage(), LOG_LEVEL_ERROR);
                     }
