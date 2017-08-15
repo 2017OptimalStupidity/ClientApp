@@ -68,18 +68,20 @@ public class RealmController {
     }
 
     public void AddForecastData(int processId) {
-
+        PrintLog("RealmController", "AddForecastData", "Add new forecast data: " + processId, LOG_LEVEL_INFO);
     }
 
     public void UpdateForecastData(int processId, Bundle recivedBundleData) {
-
+        PrintLog("RealmController", "UpdateForecastData", "Update saved forecast data: " + processId, LOG_LEVEL_INFO);
     }
 
     public int GetLatestProcessId() {
+        PrintLog("RealmController", "GetLatestProcessId", "Getting latest process id", LOG_LEVEL_INFO);
         return 0;
     }
 
     public Bundle GetLatestForecastData() {
+        PrintLog("RealmController", "GetLatestForecastData", "Getting latest forecast data", LOG_LEVEL_INFO);
         return null;
     }
 }

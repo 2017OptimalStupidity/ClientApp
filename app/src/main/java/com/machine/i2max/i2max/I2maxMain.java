@@ -221,6 +221,7 @@ public class I2maxMain extends AppCompatActivity {
     public void AddNewProcessData(int processId) {
         if(processId >= ZERO) {
             PrintLog("I2maxMain", "AddNewProcessData", "add new process id: " + processId, LOG_LEVEL_INFO);
+            realmController.AddForecastData(processId);
         }
         else {
             PrintLog("I2maxMain", "AddNewProcessData", "Not available process id: " + processId, LOG_LEVEL_WARN);
