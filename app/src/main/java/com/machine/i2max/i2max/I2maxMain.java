@@ -173,6 +173,7 @@ public class I2maxMain extends AppCompatActivity {
 
         VisibleShareView();
         InvisibleProgress();
+        DrawForecastGraph();
 
         pullForecastDataProcessId = NOT_AVAILABLE;
     }
@@ -240,5 +241,10 @@ public class I2maxMain extends AppCompatActivity {
         else {
             PrintLog("I2maxMain", "AddNewProcessData", "Not available process id: " + processId, LOG_LEVEL_WARN);
         }
+    }
+
+    public void DrawForecastGraph() {
+        Bundle forecastData = realmController.GetLatestForecastData();
+        i2maxController.UpdateLineChartView(forecastData);
     }
 }

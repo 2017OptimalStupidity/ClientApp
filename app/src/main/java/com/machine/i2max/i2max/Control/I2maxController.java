@@ -117,6 +117,10 @@ public class I2maxController {
     };
 
     public void UpdateLineChartView(Bundle forecastBundleData) {
+        if(forecastBundleData == null) {
+            PrintLog("I2maxController", "UpdateLineChartView", "bundle data is null", LOG_LEVEL_WARN);
+            return;
+        }
         String status = forecastBundleData.getString(BUNDLE_STATUS);
         String[] date = forecastBundleData.getStringArray(BUNDLE_DATE);
         double[] result = forecastBundleData.getDoubleArray(BUNDLE_RESULT);

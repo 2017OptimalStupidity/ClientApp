@@ -70,6 +70,7 @@ public class RealmController {
 
     public void AddForecastData(int processId) {
         PrintLog("RealmController", "AddForecastData", "Add new forecast data: " + processId, LOG_LEVEL_INFO);
+
     }
 
     public void UpdateForecastData(int processId, Bundle recivedBundleData) {
