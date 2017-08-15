@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 
+import com.db.chart.model.LineSet;
 import com.db.chart.view.LineChartView;
 import com.machine.i2max.i2max.Core.NetworkManager;
 import com.machine.i2max.i2max.Model.SellingDataTable;
@@ -18,6 +19,7 @@ import static com.machine.i2max.i2max.Settings.DefineManager.BUNDLE_STATUS;
 import static com.machine.i2max.i2max.Settings.DefineManager.DISABLE_PULLING_PROGRESS;
 import static com.machine.i2max.i2max.Settings.DefineManager.FORECAST_DATA_RECEIVED;
 import static com.machine.i2max.i2max.Settings.DefineManager.INVISIBLE_LOADING_PROGRESS;
+import static com.machine.i2max.i2max.Settings.DefineManager.LOG_LEVEL_ERROR;
 import static com.machine.i2max.i2max.Settings.DefineManager.LOG_LEVEL_INFO;
 import static com.machine.i2max.i2max.Settings.DefineManager.LOG_LEVEL_WARN;
 import static com.machine.i2max.i2max.Settings.DefineManager.STATUS_DONE;
@@ -104,12 +106,27 @@ public class I2maxController {
         String status = forecastBundleData.getString(BUNDLE_STATUS);
         String[] date = forecastBundleData.getStringArray(BUNDLE_DATE);
         double[] result = forecastBundleData.getDoubleArray(BUNDLE_RESULT);
+        float[] forecastResult = new float[result.length];
+
+        int i;
+        for(i = 0; i < result.length; i += 1) {
+            forecastResult[i] = (float)result[i];
+        }
 
         switch (status) {
             case STATUS_WORKING:
                 PrintLog("I2maxController", "UpdateLineChartView", "Process still working", LOG_LEVEL_INFO);
                 break;
             case STATUS_DONE:
+                try {
+                    LineSet dataSet = new LineSet(date, forecastResult);
+                    lineChart.addData(dataSet);
+                    lineChart.show();
+                }
+                catch (Exception err) {
+                    PrintLog("I2maxController", "UpdateLineChartView", "Error: " + err.getMessage(), LOG_LEVEL_ERROR);
+                }
+
                 PrintLog("I2maxController", "UpdateLineChartView", "Process done", LOG_LEVEL_INFO);
                 break;
             default:

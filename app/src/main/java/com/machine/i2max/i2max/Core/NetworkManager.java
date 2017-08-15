@@ -119,6 +119,10 @@ public class NetworkManager{
                         recvDataBundle.putDoubleArray(BUNDLE_RESULT, response.body().getResult());
                         recvDataBundle.putString(BUNDLE_STATUS, response.body().getStatus());
 
+//                        recvDataBundle.putStringArray(BUNDLE_DATE, new String[]{"2017-08-14", "2017-08-15"});
+//                        recvDataBundle.putDoubleArray(BUNDLE_RESULT, new double[]{2.5, 4.5});
+//                        recvDataBundle.putString(BUNDLE_STATUS, "Done");
+
                         Message forecastMessage = new Message();
                         forecastMessage.what = FORECAST_DATA_RECEIVED;
                         forecastMessage.setData(recvDataBundle);
