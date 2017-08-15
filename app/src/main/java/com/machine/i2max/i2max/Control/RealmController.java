@@ -22,7 +22,9 @@ import static com.machine.i2max.i2max.Settings.DefineManager.BUNDLE_RESULT;
 import static com.machine.i2max.i2max.Settings.DefineManager.BUNDLE_STATUS;
 import static com.machine.i2max.i2max.Settings.DefineManager.LOG_LEVEL_ERROR;
 import static com.machine.i2max.i2max.Settings.DefineManager.LOG_LEVEL_INFO;
+import static com.machine.i2max.i2max.Settings.DefineManager.LOG_LEVEL_WARN;
 import static com.machine.i2max.i2max.Settings.DefineManager.NOT_AVAILABLE;
+import static com.machine.i2max.i2max.Settings.DefineManager.STATUS_DONE;
 import static com.machine.i2max.i2max.Settings.DefineManager.STATUS_WORKING;
 import static com.machine.i2max.i2max.Settings.DefineManager.ZERO;
 import static com.machine.i2max.i2max.Utils.LogManager.PrintLog;
@@ -98,7 +100,50 @@ public class RealmController {
     }
 
     public void UpdateForecastData(int processId, Bundle recivedBundleData) {
-        PrintLog("RealmController", "UpdateForecastData", "Update saved forecast data: " + processId, LOG_LEVEL_INFO);
+        PrintLog("RealmController", "UpdateForecastData", "Update saved forecast data: " + processId + " status: " + recivedBundleData.getString(BUNDLE_STATUS), LOG_LEVEL_INFO);
+
+        try {
+            String status = recivedBundleData.getString(BUNDLE_STATUS);
+            String[] forecastDate = recivedBundleData.getStringArray(BUNDLE_DATE);
+            double[] forecastResult = recivedBundleData.getDoubleArray(BUNDLE_RESULT);
+
+            RealmList<RealmDouble> realmForecastResult = new RealmList<RealmDouble>();
+            for(double indexOfForecastResult : forecastResult) {
+                RealmDouble indexOfRealmDouble = new RealmDouble();
+                indexOfRealmDouble.setRealmDouble(indexOfForecastResult);
+                realmForecastResult.add(indexOfRealmDouble);
+            }
+
+            RealmList<RealmString> realmForecastDate = new RealmList<RealmString>();
+            for(String indexOfForecastDate : forecastDate) {
+                RealmString indexOfRealmString = new RealmString();
+                indexOfRealmString.setDate(indexOfForecastDate);
+                realmForecastDate.add(indexOfRealmString);
+            }
+
+            if(status == STATUS_DONE) {
+                PrintLog("RealmController", "UpdateForecastData", "Start of updating data", LOG_LEVEL_INFO);
+                ForecastDataTable updateForecastTable = new ForecastDataTable();
+                updateForecastTable.setProcessId(processId);
+                updateForecastTable.setStatus(status);
+                updateForecastTable.setForecastedData(realmForecastResult);
+                updateForecastTable.setForecastedDate(realmForecastDate);
+
+                PrintLog("RealmController", "UpdateForecastData", "realm table package rdy", LOG_LEVEL_INFO);
+
+                realmInstance.beginTransaction();
+                realmInstance.copyToRealmOrUpdate(updateForecastTable);
+                realmInstance.commitTransaction();
+
+                PrintLog("RealmController", "UpdateForecastData", "realm table updated", LOG_LEVEL_INFO);
+            }
+            else {
+                PrintLog("RealmController", "UpdateForecastData", "The status of working will not store in your database", LOG_LEVEL_WARN);
+            }
+        }
+        catch (Exception err) {
+            PrintLog("RealmController", "UpdateForecastData", "Error: " + err.getMessage(), LOG_LEVEL_ERROR);
+        }
     }
 
     public int GetLatestProcessId() {
