@@ -24,12 +24,13 @@ import static com.machine.i2max.i2max.Settings.DefineManager.COMMUNICATE_CONTENT
 import static com.machine.i2max.i2max.Settings.DefineManager.CONNECTION_SUCCESSFULL;
 import static com.machine.i2max.i2max.Settings.DefineManager.DISABLE_PULLING_PROGRESS;
 import static com.machine.i2max.i2max.Settings.DefineManager.FORECAST_DATA_RECEIVED;
-import static com.machine.i2max.i2max.Settings.DefineManager.INVISIBLE_LOADING_PROGRESS;
+import static com.machine.i2max.i2max.Settings.DefineManager.INVISIBLE_UPLOADING_PROGRESS;
 import static com.machine.i2max.i2max.Settings.DefineManager.LOG_LEVEL_ERROR;
 import static com.machine.i2max.i2max.Settings.DefineManager.LOG_LEVEL_INFO;
 import static com.machine.i2max.i2max.Settings.DefineManager.LOG_LEVEL_WARN;
+import static com.machine.i2max.i2max.Settings.DefineManager.NOT_AVAILABLE;
 import static com.machine.i2max.i2max.Settings.DefineManager.SERVER_DOMAIN_NAME;
-import static com.machine.i2max.i2max.Settings.DefineManager.VISIBLE_LOADING_PROGRESS;
+import static com.machine.i2max.i2max.Settings.DefineManager.VISIBLE_UPLOADING_PROGRESS;
 import static com.machine.i2max.i2max.Utils.LogManager.PrintLog;
 
 /**
@@ -65,7 +66,7 @@ public class NetworkManager{
 
     public void UploadDataProcess(double data[], String date[], int day){
 
-        handlingWithController.sendEmptyMessage(VISIBLE_LOADING_PROGRESS);
+        handlingWithController.sendEmptyMessage(VISIBLE_UPLOADING_PROGRESS);
 
         NetworkManagerRoute retrofitInterface = CreateRetrofitConnector().create(NetworkManagerRoute.class);
         UploadDataRequest uploadDataRequest = new UploadDataRequest();
@@ -77,10 +78,13 @@ public class NetworkManager{
         calling.enqueue(new Callback<UploadDataResponse>() {
             @Override
             public void onResponse(Call<UploadDataResponse> call, Response<UploadDataResponse> response) {
-                handlingWithController.sendEmptyMessage(INVISIBLE_LOADING_PROGRESS);
+                Message responseArrived = new Message();
                 if(response.code() == CONNECTION_SUCCESSFULL) {
                     try {
                         PrintLog("NetworkManager", "UploadDataProcess", "ok response is: " + response.body().getResult(), LOG_LEVEL_INFO);
+                        responseArrived.what = INVISIBLE_UPLOADING_PROGRESS;
+                        responseArrived.arg1 = response.body().getResult();
+                        handlingWithController.sendMessage(responseArrived);
                     }
                     catch (Exception err) {
                         PrintLog("NetworkManager", "UploadDataProcess", "Error: " + err.getMessage(), LOG_LEVEL_ERROR);
@@ -94,7 +98,10 @@ public class NetworkManager{
             @Override
             public void onFailure(Call<UploadDataResponse> call, Throwable t) {
                 PrintLog("NetworkManager", "UploadDataProcess", "fail response is: " + t.getMessage(), LOG_LEVEL_WARN);
-                handlingWithController.sendEmptyMessage(INVISIBLE_LOADING_PROGRESS);
+                Message responseArrived = new Message();
+                responseArrived.what = INVISIBLE_UPLOADING_PROGRESS;
+                responseArrived.arg1 = NOT_AVAILABLE;
+                handlingWithController.sendMessage(responseArrived);
             }
         });
     }

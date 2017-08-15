@@ -24,11 +24,12 @@ import com.machine.i2max.i2max.Control.I2maxController;
 import com.machine.i2max.i2max.Control.RealmController;
 
 import static com.machine.i2max.i2max.Settings.DefineManager.DISABLE_PULLING_PROGRESS;
-import static com.machine.i2max.i2max.Settings.DefineManager.INVISIBLE_LOADING_PROGRESS;
+import static com.machine.i2max.i2max.Settings.DefineManager.INVISIBLE_UPLOADING_PROGRESS;
 import static com.machine.i2max.i2max.Settings.DefineManager.LOG_LEVEL_ERROR;
 import static com.machine.i2max.i2max.Settings.DefineManager.LOG_LEVEL_INFO;
 import static com.machine.i2max.i2max.Settings.DefineManager.LOG_LEVEL_WARN;
-import static com.machine.i2max.i2max.Settings.DefineManager.VISIBLE_LOADING_PROGRESS;
+import static com.machine.i2max.i2max.Settings.DefineManager.VISIBLE_UPLOADING_PROGRESS;
+import static com.machine.i2max.i2max.Settings.DefineManager.ZERO;
 import static com.machine.i2max.i2max.Utils.LogManager.PrintLog;
 
 public class I2maxMain extends AppCompatActivity {
@@ -201,10 +202,11 @@ public class I2maxMain extends AppCompatActivity {
             super.handleMessage(msg);
 
             switch (msg.what) {
-                case VISIBLE_LOADING_PROGRESS:
+                case VISIBLE_UPLOADING_PROGRESS:
                     VisibleProgress();
                     break;
-                case INVISIBLE_LOADING_PROGRESS:
+                case INVISIBLE_UPLOADING_PROGRESS:
+                    AddNewProcessData(msg.arg1);
                     InvisibleProgress();
                     break;
                 case DISABLE_PULLING_PROGRESS:
@@ -215,4 +217,13 @@ public class I2maxMain extends AppCompatActivity {
             }
         }
     };
+
+    public void AddNewProcessData(int processId) {
+        if(processId >= ZERO) {
+            PrintLog("I2maxMain", "AddNewProcessData", "add new process id: " + processId, LOG_LEVEL_INFO);
+        }
+        else {
+            PrintLog("I2maxMain", "AddNewProcessData", "Not available process id: " + processId, LOG_LEVEL_WARN);
+        }
+    }
 }

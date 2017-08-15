@@ -18,13 +18,13 @@ import static com.machine.i2max.i2max.Settings.DefineManager.BUNDLE_RESULT;
 import static com.machine.i2max.i2max.Settings.DefineManager.BUNDLE_STATUS;
 import static com.machine.i2max.i2max.Settings.DefineManager.DISABLE_PULLING_PROGRESS;
 import static com.machine.i2max.i2max.Settings.DefineManager.FORECAST_DATA_RECEIVED;
-import static com.machine.i2max.i2max.Settings.DefineManager.INVISIBLE_LOADING_PROGRESS;
+import static com.machine.i2max.i2max.Settings.DefineManager.INVISIBLE_UPLOADING_PROGRESS;
 import static com.machine.i2max.i2max.Settings.DefineManager.LOG_LEVEL_ERROR;
 import static com.machine.i2max.i2max.Settings.DefineManager.LOG_LEVEL_INFO;
 import static com.machine.i2max.i2max.Settings.DefineManager.LOG_LEVEL_WARN;
 import static com.machine.i2max.i2max.Settings.DefineManager.STATUS_DONE;
 import static com.machine.i2max.i2max.Settings.DefineManager.STATUS_WORKING;
-import static com.machine.i2max.i2max.Settings.DefineManager.VISIBLE_LOADING_PROGRESS;
+import static com.machine.i2max.i2max.Settings.DefineManager.VISIBLE_UPLOADING_PROGRESS;
 import static com.machine.i2max.i2max.Utils.LogManager.PrintLog;
 
 /**
@@ -85,11 +85,14 @@ public class I2maxController {
         public void handleMessage(Message msg) {
             super.handleMessage(msg);
             switch (msg.what) {
-                case VISIBLE_LOADING_PROGRESS:
-                    handlingWithController.sendEmptyMessage(VISIBLE_LOADING_PROGRESS);
+                case VISIBLE_UPLOADING_PROGRESS:
+                    handlingWithController.sendEmptyMessage(VISIBLE_UPLOADING_PROGRESS);
                     break;
-                case INVISIBLE_LOADING_PROGRESS:
-                    handlingWithController.sendEmptyMessage(INVISIBLE_LOADING_PROGRESS);
+                case INVISIBLE_UPLOADING_PROGRESS:
+                    Message addNewRequestMessage = new Message();
+                    addNewRequestMessage.what = msg.what;
+                    addNewRequestMessage.arg1 = msg.arg1;
+                    handlingWithController.sendMessage(addNewRequestMessage);
                     break;
                 case DISABLE_PULLING_PROGRESS:
                     handlingWithController.sendEmptyMessage(DISABLE_PULLING_PROGRESS);

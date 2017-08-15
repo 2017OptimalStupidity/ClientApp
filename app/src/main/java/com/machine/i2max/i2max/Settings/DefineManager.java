@@ -24,8 +24,10 @@ public class DefineManager {
             LOG_LEVEL_WARN = 3,
             LOG_LEVEL_ERROR = 4,
 
-            VISIBLE_LOADING_PROGRESS = 1,
-            INVISIBLE_LOADING_PROGRESS = 0,
+            ZERO = 0,
+            NOT_AVAILABLE = -1,
+            VISIBLE_UPLOADING_PROGRESS = 1,
+            INVISIBLE_UPLOADING_PROGRESS = 0,
             DISABLE_PULLING_PROGRESS = 2,
             FORECAST_DATA_RECEIVED = 3,
 

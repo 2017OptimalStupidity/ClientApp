@@ -1,6 +1,7 @@
 package com.machine.i2max.i2max.Control;
 
 import android.content.Context;
+import android.os.Bundle;
 
 import com.machine.i2max.i2max.Model.SellingDataTable;
 
@@ -64,5 +65,21 @@ public class RealmController {
         ArrayList<SellingDataTable> storedSellingDatas = new ArrayList(realmInstance.where(SellingDataTable.class).findAll());
         PrintLog("RealmController", "GetSellingDatas", "Data len: " + storedSellingDatas.size(), LOG_LEVEL_INFO);
         return storedSellingDatas;
+    }
+
+    public void AddForecastData(int processId) {
+
+    }
+
+    public void UpdateForecastData(int processId, Bundle recivedBundleData) {
+
+    }
+
+    public int GetLatestProcessId() {
+        return 0;
+    }
+
+    public Bundle GetLatestForecastData() {
+        return null;
     }
 }
