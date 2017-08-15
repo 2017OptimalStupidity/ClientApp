@@ -18,7 +18,6 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.baoyz.widget.PullRefreshLayout;
-import com.db.chart.model.LineSet;
 import com.db.chart.view.LineChartView;
 import com.dd.processbutton.iml.ActionProcessButton;
 import com.machine.i2max.i2max.Control.I2maxController;
@@ -159,8 +158,8 @@ public class I2maxMain extends AppCompatActivity {
         dynamicAppView.addView(shareView);
         dynamicAppView.addView(graphView);
 
-        LineSet dataset = new LineSet(new String[]{"2017-08-11", "2017-08-12", "2017-08-13"}, new float[]{1.0f, 2.0f, 0.5f});
-        lineChart.addData(dataset);
+//        LineSet dataset = new LineSet(new String[]{"2017-08-11", "2017-08-12", "2017-08-13"}, new float[]{1.0f, 2.0f, 0.5f});
+//        lineChart.addData(dataset);
         lineChart.show();
 
         i2maxController = new I2maxController(handlingWithController);

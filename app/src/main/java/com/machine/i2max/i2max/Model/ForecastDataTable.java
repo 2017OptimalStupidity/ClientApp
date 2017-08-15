@@ -14,6 +14,14 @@ public class ForecastDataTable extends RealmObject {
     public RealmList<RealmDouble> forecastedData;
     public RealmList<RealmString> forecastedDate;
 
+    public RealmList<RealmString> getForecastedDate() {
+        return forecastedDate;
+    }
+
+    public void setForecastedDate(RealmList<RealmString> forecastedDate) {
+        this.forecastedDate = forecastedDate;
+    }
+
     public String getStatus() {
         return status;
     }
