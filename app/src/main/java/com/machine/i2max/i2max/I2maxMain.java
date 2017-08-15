@@ -162,7 +162,7 @@ public class I2maxMain extends AppCompatActivity {
 //        lineChart.addData(dataset);
 //        lineChart.show();
 
-        i2maxController = new I2maxController(handlingWithController);
+        i2maxController = new I2maxController(handlingWithController, lineChart);
         realmController = new RealmController(getApplicationContext());
 
         VisibleShareView();

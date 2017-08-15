@@ -8,7 +8,14 @@ public class DefineManager {
     public static final String
             SERVER_DOMAIN_NAME = "211.249.49.198:5000",
             COMMUNICATE_CONTENT_TYPE = "application/json",
-            APP_NAME = "i2max";
+            APP_NAME = "i2max",
+
+            BUNDLE_STATUS = "status",
+            BUNDLE_DATE = "date",
+            BUNDLE_RESULT = "result",
+
+            STATUS_WORKING = "Working",
+            STATUS_DONE = "Done";
 
     public static final int
             LOG_LEVEL_VERBOSE = 0,

@@ -17,6 +17,9 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
+import static com.machine.i2max.i2max.Settings.DefineManager.BUNDLE_DATE;
+import static com.machine.i2max.i2max.Settings.DefineManager.BUNDLE_RESULT;
+import static com.machine.i2max.i2max.Settings.DefineManager.BUNDLE_STATUS;
 import static com.machine.i2max.i2max.Settings.DefineManager.COMMUNICATE_CONTENT_TYPE;
 import static com.machine.i2max.i2max.Settings.DefineManager.CONNECTION_SUCCESSFULL;
 import static com.machine.i2max.i2max.Settings.DefineManager.DISABLE_PULLING_PROGRESS;
@@ -112,9 +115,9 @@ public class NetworkManager{
                         PrintLog("NetworkManager", "DownloadForecastProcess", "ok response is: " + response.body().getStatus(), LOG_LEVEL_INFO);
 
                         Bundle recvDataBundle = new Bundle();
-                        recvDataBundle.putStringArray("date", response.body().getDate());
-                        recvDataBundle.putDoubleArray("result", response.body().getResult());
-                        recvDataBundle.putString("status", response.body().getStatus());
+                        recvDataBundle.putStringArray(BUNDLE_DATE, response.body().getDate());
+                        recvDataBundle.putDoubleArray(BUNDLE_RESULT, response.body().getResult());
+                        recvDataBundle.putString(BUNDLE_STATUS, response.body().getStatus());
 
                         Message forecastMessage = new Message();
                         forecastMessage.what = FORECAST_DATA_RECEIVED;
