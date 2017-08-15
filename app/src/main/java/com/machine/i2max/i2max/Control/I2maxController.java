@@ -81,6 +81,7 @@ public class I2maxController {
             networkManager.DownloadForecastProcess(processId);
         }
         else {
+            handlingWithController.sendEmptyMessage(DISABLE_PULLING_PROGRESS);
             PrintLog("I2maxController", "PullingData", "not available process id: " + processId, LOG_LEVEL_WARN);
         }
     }
