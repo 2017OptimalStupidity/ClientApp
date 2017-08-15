@@ -24,10 +24,12 @@ import com.machine.i2max.i2max.Control.I2maxController;
 import com.machine.i2max.i2max.Control.RealmController;
 
 import static com.machine.i2max.i2max.Settings.DefineManager.DISABLE_PULLING_PROGRESS;
+import static com.machine.i2max.i2max.Settings.DefineManager.FORECAST_DATA_RECEIVED;
 import static com.machine.i2max.i2max.Settings.DefineManager.INVISIBLE_UPLOADING_PROGRESS;
 import static com.machine.i2max.i2max.Settings.DefineManager.LOG_LEVEL_ERROR;
 import static com.machine.i2max.i2max.Settings.DefineManager.LOG_LEVEL_INFO;
 import static com.machine.i2max.i2max.Settings.DefineManager.LOG_LEVEL_WARN;
+import static com.machine.i2max.i2max.Settings.DefineManager.NOT_AVAILABLE;
 import static com.machine.i2max.i2max.Settings.DefineManager.VISIBLE_UPLOADING_PROGRESS;
 import static com.machine.i2max.i2max.Settings.DefineManager.ZERO;
 import static com.machine.i2max.i2max.Utils.LogManager.PrintLog;
@@ -45,6 +47,8 @@ public class I2maxMain extends AppCompatActivity {
     RealmController realmController;
     PullRefreshLayout swipeRefreshLayout;
     LineChartView lineChart;
+
+    int pullForecastDataProcessId;
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -132,7 +136,8 @@ public class I2maxMain extends AppCompatActivity {
         swipeRefreshLayout.setOnRefreshListener(new PullRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                i2maxController.PullingData(2);
+                pullForecastDataProcessId = realmController.GetLatestProcessId();
+                i2maxController.PullingData(pullForecastDataProcessId);
                 PrintLog("I2maxMain", "onRefresh", "Start refresh", LOG_LEVEL_INFO);
             }
         });
@@ -168,6 +173,8 @@ public class I2maxMain extends AppCompatActivity {
 
         VisibleShareView();
         InvisibleProgress();
+
+        pullForecastDataProcessId = NOT_AVAILABLE;
     }
 
     public void VisibleProgress() {
@@ -212,11 +219,18 @@ public class I2maxMain extends AppCompatActivity {
                 case DISABLE_PULLING_PROGRESS:
                     DisablePullingProcess();
                     break;
+                case FORECAST_DATA_RECEIVED:
+                    UpdateReceivedFroecastData(msg.getData());
+                    break;
                 default:
                     break;
             }
         }
     };
+
+    public void UpdateReceivedFroecastData(Bundle forecastBundleData) {
+        realmController.UpdateForecastData(pullForecastDataProcessId, forecastBundleData);
+    }
 
     public void AddNewProcessData(int processId) {
         if(processId >= ZERO) {

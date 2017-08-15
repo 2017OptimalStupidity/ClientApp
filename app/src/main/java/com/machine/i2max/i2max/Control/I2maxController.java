@@ -25,6 +25,7 @@ import static com.machine.i2max.i2max.Settings.DefineManager.LOG_LEVEL_WARN;
 import static com.machine.i2max.i2max.Settings.DefineManager.STATUS_DONE;
 import static com.machine.i2max.i2max.Settings.DefineManager.STATUS_WORKING;
 import static com.machine.i2max.i2max.Settings.DefineManager.VISIBLE_UPLOADING_PROGRESS;
+import static com.machine.i2max.i2max.Settings.DefineManager.ZERO;
 import static com.machine.i2max.i2max.Utils.LogManager.PrintLog;
 
 /**
@@ -76,7 +77,12 @@ public class I2maxController {
     }
 
     public void PullingData(int processId) {
-        networkManager.DownloadForecastProcess(processId);
+        if(processId >= ZERO) {
+            networkManager.DownloadForecastProcess(processId);
+        }
+        else {
+            PrintLog("I2maxController", "PullingData", "not available process id: " + processId, LOG_LEVEL_WARN);
+        }
     }
 
     Handler handlingWithNetworkManager = new Handler() {
@@ -99,6 +105,10 @@ public class I2maxController {
                     break;
                 case FORECAST_DATA_RECEIVED:
                     UpdateLineChartView(msg.getData());
+                    Message updateForecastData = new Message();
+                    updateForecastData.what = msg.what;
+                    updateForecastData.setData(msg.getData());
+                    handlingWithController.sendMessage(updateForecastData);
                 default:
                     break;
             }

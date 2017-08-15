@@ -13,6 +13,7 @@ import io.realm.RealmConfiguration;
 
 import static com.machine.i2max.i2max.Settings.DefineManager.LOG_LEVEL_ERROR;
 import static com.machine.i2max.i2max.Settings.DefineManager.LOG_LEVEL_INFO;
+import static com.machine.i2max.i2max.Settings.DefineManager.NOT_AVAILABLE;
 import static com.machine.i2max.i2max.Utils.LogManager.PrintLog;
 
 /**
@@ -77,7 +78,7 @@ public class RealmController {
 
     public int GetLatestProcessId() {
         PrintLog("RealmController", "GetLatestProcessId", "Getting latest process id", LOG_LEVEL_INFO);
-        return 0;
+        return NOT_AVAILABLE;
     }
 
     public Bundle GetLatestForecastData() {
