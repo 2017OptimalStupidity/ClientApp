@@ -11,6 +11,8 @@ import java.util.Date;
 
 import io.realm.Realm;
 import io.realm.RealmConfiguration;
+import io.realm.RealmResults;
+import io.realm.Sort;
 
 import static com.machine.i2max.i2max.Settings.DefineManager.LOG_LEVEL_ERROR;
 import static com.machine.i2max.i2max.Settings.DefineManager.LOG_LEVEL_INFO;
@@ -74,7 +76,7 @@ public class RealmController {
         PrintLog("RealmController", "AddForecastData", "Add new forecast data: " + processId, LOG_LEVEL_INFO);
         try {
             ForecastDataTable newForecastTable = new ForecastDataTable();
-            newForecastTable.setProgressId(processId);
+            newForecastTable.setProcessId(processId);
             newForecastTable.setStatus(STATUS_WORKING);
 
             realmInstance.beginTransaction();
@@ -95,7 +97,11 @@ public class RealmController {
     public int GetLatestProcessId() {
         PrintLog("RealmController", "GetLatestProcessId", "Getting latest process id", LOG_LEVEL_INFO);
         try {
-
+            RealmResults<ForecastDataTable> forecastDataTables = realmInstance.where(ForecastDataTable.class).findAllSorted("processId", Sort.DESCENDING);
+            for(ForecastDataTable indexOfForecastData : forecastDataTables) {
+                PrintLog("RealmController", "GetLatestProcessId", "saved request process id: " + indexOfForecastData.getProcessId(), LOG_LEVEL_INFO);
+                return indexOfForecastData.getProcessId();
+            }
         }
         catch (Exception err) {
             PrintLog("RealmController", "GetLatestProcessId", "Error: " + err.getMessage(), LOG_LEVEL_ERROR);
@@ -105,6 +111,9 @@ public class RealmController {
 
     public Bundle GetLatestForecastData() {
         PrintLog("RealmController", "GetLatestForecastData", "Getting latest forecast data", LOG_LEVEL_INFO);
+
+        int lastProcessId = NOT_AVAILABLE;
+        lastProcessId = GetLatestProcessId();
         return null;
     }
 }

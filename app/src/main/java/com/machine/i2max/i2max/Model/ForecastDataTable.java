@@ -11,7 +11,7 @@ import io.realm.annotations.PrimaryKey;
 public class ForecastDataTable extends RealmObject {
 
     @PrimaryKey
-    public int progressId;
+    public int processId;
     
     public String status;
     public RealmList<RealmDouble> forecastedData;
@@ -41,11 +41,11 @@ public class ForecastDataTable extends RealmObject {
         this.forecastedData = forecastedData;
     }
 
-    public int getProgressId() {
-        return progressId;
+    public int getProcessId() {
+        return processId;
     }
 
-    public void setProgressId(int progressId) {
-        this.progressId = progressId;
+    public void setProcessId(int processId) {
+        this.processId = processId;
     }
 }
