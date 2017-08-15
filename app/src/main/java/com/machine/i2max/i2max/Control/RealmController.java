@@ -3,6 +3,7 @@ package com.machine.i2max.i2max.Control;
 import android.content.Context;
 import android.os.Bundle;
 
+import com.machine.i2max.i2max.Model.ForecastDataTable;
 import com.machine.i2max.i2max.Model.SellingDataTable;
 
 import java.util.ArrayList;
@@ -14,6 +15,7 @@ import io.realm.RealmConfiguration;
 import static com.machine.i2max.i2max.Settings.DefineManager.LOG_LEVEL_ERROR;
 import static com.machine.i2max.i2max.Settings.DefineManager.LOG_LEVEL_INFO;
 import static com.machine.i2max.i2max.Settings.DefineManager.NOT_AVAILABLE;
+import static com.machine.i2max.i2max.Settings.DefineManager.STATUS_WORKING;
 import static com.machine.i2max.i2max.Utils.LogManager.PrintLog;
 
 /**
@@ -70,7 +72,20 @@ public class RealmController {
 
     public void AddForecastData(int processId) {
         PrintLog("RealmController", "AddForecastData", "Add new forecast data: " + processId, LOG_LEVEL_INFO);
+        try {
+            ForecastDataTable newForecastTable = new ForecastDataTable();
+            newForecastTable.setProgressId(processId);
+            newForecastTable.setStatus(STATUS_WORKING);
 
+            realmInstance.beginTransaction();
+            realmInstance.copyToRealm(newForecastTable);
+            realmInstance.commitTransaction();
+
+            PrintLog("RealmController", "AddForecastData", "new forecast table added: " + processId, LOG_LEVEL_INFO);
+        }
+        catch (Exception err) {
+            PrintLog("RealmController", "AddForecastData", "Error: " + err.getMessage(), LOG_LEVEL_ERROR);
+        }
     }
 
     public void UpdateForecastData(int processId, Bundle recivedBundleData) {
@@ -79,6 +94,12 @@ public class RealmController {
 
     public int GetLatestProcessId() {
         PrintLog("RealmController", "GetLatestProcessId", "Getting latest process id", LOG_LEVEL_INFO);
+        try {
+
+        }
+        catch (Exception err) {
+            PrintLog("RealmController", "GetLatestProcessId", "Error: " + err.getMessage(), LOG_LEVEL_ERROR);
+        }
         return NOT_AVAILABLE;
     }
 
