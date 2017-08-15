@@ -2,6 +2,7 @@ package com.machine.i2max.i2max.Model;
 
 import io.realm.RealmList;
 import io.realm.RealmObject;
+import io.realm.annotations.PrimaryKey;
 
 /**
  * Created by stories2 on 2017. 8. 9..
@@ -9,7 +10,9 @@ import io.realm.RealmObject;
 
 public class ForecastDataTable extends RealmObject {
 
+    @PrimaryKey
     public int progressId;
+    
     public String status;
     public RealmList<RealmDouble> forecastedData;
     public RealmList<RealmString> forecastedDate;
