@@ -23,6 +23,9 @@ import com.dd.processbutton.iml.ActionProcessButton;
 import com.machine.i2max.i2max.Control.I2maxController;
 import com.machine.i2max.i2max.Control.RealmController;
 
+import static com.machine.i2max.i2max.Settings.DefineManager.BUNDLE_DATE;
+import static com.machine.i2max.i2max.Settings.DefineManager.BUNDLE_RESULT;
+import static com.machine.i2max.i2max.Settings.DefineManager.BUNDLE_STATUS;
 import static com.machine.i2max.i2max.Settings.DefineManager.DISABLE_PULLING_PROGRESS;
 import static com.machine.i2max.i2max.Settings.DefineManager.FORECAST_DATA_RECEIVED;
 import static com.machine.i2max.i2max.Settings.DefineManager.INVISIBLE_UPLOADING_PROGRESS;
@@ -230,7 +233,12 @@ public class I2maxMain extends AppCompatActivity {
     };
 
     public void UpdateReceivedFroecastData(Bundle forecastBundleData) {
-        realmController.UpdateForecastData(pullForecastDataProcessId, forecastBundleData);
+        Bundle testBundle = new Bundle();
+        testBundle.putString(BUNDLE_STATUS, "Done");
+        testBundle.putStringArray(BUNDLE_DATE, new String[]{"2017-08-14", "2017-08-15"});
+        testBundle.putDoubleArray(BUNDLE_RESULT, new double[]{1.5, 0.5});
+        realmController.UpdateForecastData(pullForecastDataProcessId, testBundle);
+        i2maxController.UpdateLineChartView(testBundle);
     }
 
     public void AddNewProcessData(int processId) {

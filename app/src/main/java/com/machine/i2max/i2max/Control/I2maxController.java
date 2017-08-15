@@ -138,6 +138,7 @@ public class I2maxController {
             case STATUS_DONE:
                 try {
                     LineSet dataSet = new LineSet(date, forecastResult);
+
                     lineChart.addData(dataSet);
                     lineChart.show();
                 }
