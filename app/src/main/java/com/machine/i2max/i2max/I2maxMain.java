@@ -45,7 +45,7 @@ public class I2maxMain extends AppCompatActivity {
     private TextView mTextMessage;
     LayoutInflater dynamicLayoutInflater;
     FrameLayout dynamicAppView;
-    RelativeLayout shareView, graphView;
+    RelativeLayout shareView, graphView, infoView;
     I2maxController i2maxController;
     ProgressBar progressUploading;
     EditText etxtSellingData, etxtForecastDay;
@@ -69,6 +69,10 @@ public class I2maxMain extends AppCompatActivity {
                 case R.id.navigationGraph:
                     PrintLog("I2maxMain", "onNavigationItemSelected", "show graph view", LOG_LEVEL_INFO);
                     VisibleGraphView();
+                    return true;
+                case R.id.navigationInfo:
+                    PrintLog("I2maxMain", "onNavigationItemSelected", "show info view", LOG_LEVEL_INFO);
+                    VisibleInfoView();
                     return true;
                 default:
                     return false;
@@ -157,6 +161,7 @@ public class I2maxMain extends AppCompatActivity {
         dynamicAppView = (FrameLayout) findViewById(R.id.content);
         shareView = (RelativeLayout) dynamicLayoutInflater.inflate(R.layout.share_data_layout, null);
         graphView = (RelativeLayout) dynamicLayoutInflater.inflate(R.layout.graph_data_layout, null);
+        infoView = (RelativeLayout) dynamicLayoutInflater.inflate(R.layout.info_layout, null);
         progressUploading = (ProgressBar) shareView.findViewById(R.id.progressUploading);
         etxtSellingData = (EditText) shareView.findViewById(R.id.etxtSellingData);
         etxtForecastDay = (EditText) shareView.findViewById(R.id.etxtForecastDay);
@@ -169,6 +174,7 @@ public class I2maxMain extends AppCompatActivity {
 
         dynamicAppView.addView(shareView);
         dynamicAppView.addView(graphView);
+        dynamicAppView.addView(infoView);
 
 //        LineSet dataset = new LineSet(new String[]{"2017-08-11", "2017-08-12", "2017-08-13"}, new float[]{1.0f, 2.0f, 0.5f});
 //        lineChart.addData(dataset);
@@ -197,11 +203,19 @@ public class I2maxMain extends AppCompatActivity {
     public void VisibleShareView() {
         shareView.setVisibility(View.VISIBLE);
         graphView.setVisibility(View.INVISIBLE);
+        infoView.setVisibility(View.INVISIBLE);
     }
 
     public void VisibleGraphView() {
         shareView.setVisibility(View.INVISIBLE);
         graphView.setVisibility(View.VISIBLE);
+        infoView.setVisibility(View.INVISIBLE);
+    }
+
+    public void VisibleInfoView() {
+        shareView.setVisibility(View.INVISIBLE);
+        graphView.setVisibility(View.INVISIBLE);
+        infoView.setVisibility(View.VISIBLE);
     }
 
     public void DisablePullingProcess() {

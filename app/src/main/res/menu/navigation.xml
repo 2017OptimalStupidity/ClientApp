@@ -11,4 +11,9 @@
         android:icon="@drawable/ic_trending_up_black_24dp"
         android:title="@string/GraphData" />
 
+    <item
+        android:id="@+id/navigationInfo"
+        android:icon="@drawable/ic_info_black_24dp"
+        android:title="Info"
+        />
 </menu>
