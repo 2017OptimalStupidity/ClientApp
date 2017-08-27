@@ -24,6 +24,8 @@ public class DefineManager {
             LOG_LEVEL_WARN = 3,
             LOG_LEVEL_ERROR = 4,
 
+            MINIMUM_OF_DATA_SIZE = 6,
+
             ZERO = 0,
             NOT_AVAILABLE = -1,
             VISIBLE_UPLOADING_PROGRESS = 1,
@@ -32,6 +34,8 @@ public class DefineManager {
             FORECAST_DATA_RECEIVED = 3,
             PRINT_PROCESS_NOT_READY = 4,
             FORECAST_DATA_RECEIVED_ERROR = 5,
+            WRONG_FORECAST_DAY_ACCEPTED = 6,
+            TOO_SMALL_DATA_ACCEPTED = 7,
 
             CONNECTION_SUCCESSFULL = 200;
 }

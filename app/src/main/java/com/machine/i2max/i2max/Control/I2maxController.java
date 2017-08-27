@@ -23,10 +23,13 @@ import static com.machine.i2max.i2max.Settings.DefineManager.INVISIBLE_UPLOADING
 import static com.machine.i2max.i2max.Settings.DefineManager.LOG_LEVEL_ERROR;
 import static com.machine.i2max.i2max.Settings.DefineManager.LOG_LEVEL_INFO;
 import static com.machine.i2max.i2max.Settings.DefineManager.LOG_LEVEL_WARN;
+import static com.machine.i2max.i2max.Settings.DefineManager.MINIMUM_OF_DATA_SIZE;
 import static com.machine.i2max.i2max.Settings.DefineManager.PRINT_PROCESS_NOT_READY;
 import static com.machine.i2max.i2max.Settings.DefineManager.STATUS_DONE;
 import static com.machine.i2max.i2max.Settings.DefineManager.STATUS_WORKING;
+import static com.machine.i2max.i2max.Settings.DefineManager.TOO_SMALL_DATA_ACCEPTED;
 import static com.machine.i2max.i2max.Settings.DefineManager.VISIBLE_UPLOADING_PROGRESS;
+import static com.machine.i2max.i2max.Settings.DefineManager.WRONG_FORECAST_DAY_ACCEPTED;
 import static com.machine.i2max.i2max.Settings.DefineManager.ZERO;
 import static com.machine.i2max.i2max.Utils.LogManager.PrintLog;
 
@@ -62,8 +65,14 @@ public class I2maxController {
         double[] eachDaysOfSellingData = new double[sizeOfSellingData];
         String[] eachDaysOfSellingDate = new String[sizeOfSellingData];
         PrintLog("I2maxController", "UploadData", "size of selling data: " + sizeOfSellingData, LOG_LEVEL_INFO);
-        if(forecastDay >= sizeOfSellingData || forecastDay <= 0) {
+        if(forecastDay >= sizeOfSellingData || forecastDay <= 0 ) {
             PrintLog("I2maxController", "UploadData", "Wrong forcast day accepted", LOG_LEVEL_WARN);
+            handlingWithController.sendEmptyMessage(WRONG_FORECAST_DAY_ACCEPTED);
+            return;
+        }
+        if(sizeOfSellingData < MINIMUM_OF_DATA_SIZE) {
+            PrintLog("I2maxController", "UploadData", "Too small data accepted", LOG_LEVEL_WARN);
+            handlingWithController.sendEmptyMessage(TOO_SMALL_DATA_ACCEPTED);
             return;
         }
 
