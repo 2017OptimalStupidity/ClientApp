@@ -22,6 +22,7 @@ import static com.machine.i2max.i2max.Settings.DefineManager.INVISIBLE_UPLOADING
 import static com.machine.i2max.i2max.Settings.DefineManager.LOG_LEVEL_ERROR;
 import static com.machine.i2max.i2max.Settings.DefineManager.LOG_LEVEL_INFO;
 import static com.machine.i2max.i2max.Settings.DefineManager.LOG_LEVEL_WARN;
+import static com.machine.i2max.i2max.Settings.DefineManager.PRINT_PROCESS_NOT_READY;
 import static com.machine.i2max.i2max.Settings.DefineManager.STATUS_DONE;
 import static com.machine.i2max.i2max.Settings.DefineManager.STATUS_WORKING;
 import static com.machine.i2max.i2max.Settings.DefineManager.VISIBLE_UPLOADING_PROGRESS;
@@ -134,6 +135,7 @@ public class I2maxController {
         switch (status) {
             case STATUS_WORKING:
                 PrintLog("I2maxController", "UpdateLineChartView", "Process still working", LOG_LEVEL_INFO);
+                handlingWithController.sendEmptyMessage(PRINT_PROCESS_NOT_READY);
                 break;
             case STATUS_DONE:
                 try {

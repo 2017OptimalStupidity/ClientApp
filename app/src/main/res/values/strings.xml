@@ -11,4 +11,6 @@
     <!-- -->
     <string name="SellingData">Selling data</string>
     <string name="ForecastDay">Forecast day</string>
+    <!-- -->
+    <string name="ProcessNotReady">Forecast data is not ready.</string>
 </resources>

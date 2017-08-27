@@ -13,6 +13,14 @@
             <RelativeLayout
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent">
+                <TextView
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:text="Pull down!"
+                    android:textAlignment="center"
+                    android:textSize="50dp"
+                    />
                 <com.db.chart.view.LineChartView
                     android:id="@+id/lineChart"
                     android:layout_width="match_parent"

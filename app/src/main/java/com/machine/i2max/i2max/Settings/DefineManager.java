@@ -30,6 +30,7 @@ public class DefineManager {
             INVISIBLE_UPLOADING_PROGRESS = 0,
             DISABLE_PULLING_PROGRESS = 2,
             FORECAST_DATA_RECEIVED = 3,
+            PRINT_PROCESS_NOT_READY = 4,
 
             CONNECTION_SUCCESSFULL = 200;
 }

@@ -6,6 +6,7 @@ import android.os.Handler;
 import android.os.Message;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -30,6 +31,7 @@ import static com.machine.i2max.i2max.Settings.DefineManager.LOG_LEVEL_ERROR;
 import static com.machine.i2max.i2max.Settings.DefineManager.LOG_LEVEL_INFO;
 import static com.machine.i2max.i2max.Settings.DefineManager.LOG_LEVEL_WARN;
 import static com.machine.i2max.i2max.Settings.DefineManager.NOT_AVAILABLE;
+import static com.machine.i2max.i2max.Settings.DefineManager.PRINT_PROCESS_NOT_READY;
 import static com.machine.i2max.i2max.Settings.DefineManager.VISIBLE_UPLOADING_PROGRESS;
 import static com.machine.i2max.i2max.Settings.DefineManager.ZERO;
 import static com.machine.i2max.i2max.Utils.LogManager.PrintLog;
@@ -223,6 +225,8 @@ public class I2maxMain extends AppCompatActivity {
                 case FORECAST_DATA_RECEIVED:
                     UpdateReceivedFroecastData(msg.getData());
                     break;
+                case PRINT_PROCESS_NOT_READY:
+                    ShowSnackBarMessage(getString(R.string.ProcessNotReady));
                 default:
                     break;
             }
@@ -251,5 +255,11 @@ public class I2maxMain extends AppCompatActivity {
     public void DrawForecastGraph() {
         Bundle forecastData = realmController.GetLatestForecastData();
         i2maxController.UpdateLineChartView(forecastData);
+    }
+
+    public void ShowSnackBarMessage(String message) {
+        Snackbar.make(findViewById(R.id.container), message,
+                Snackbar.LENGTH_SHORT)
+                .show();
     }
 }
