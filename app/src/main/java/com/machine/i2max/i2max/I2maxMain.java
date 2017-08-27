@@ -24,6 +24,7 @@ import com.dd.processbutton.iml.ActionProcessButton;
 import com.machine.i2max.i2max.Control.I2maxController;
 import com.machine.i2max.i2max.Control.RealmController;
 
+import static com.machine.i2max.i2max.Settings.DefineManager.DATA_SAVE;
 import static com.machine.i2max.i2max.Settings.DefineManager.DISABLE_PULLING_PROGRESS;
 import static com.machine.i2max.i2max.Settings.DefineManager.FORECAST_DATA_RECEIVED;
 import static com.machine.i2max.i2max.Settings.DefineManager.FORECAST_DATA_RECEIVED_ERROR;
@@ -240,6 +241,9 @@ public class I2maxMain extends AppCompatActivity {
                     break;
                 case TOO_SMALL_DATA_ACCEPTED:
                     ShowSnackBarMessage(getString(R.string.TooSmallDataAccepted));
+                    break;
+                case DATA_SAVE:
+                    ShowSnackBarMessage(getString(R.string.DataSaved));
                     break;
                 default:
                     break;

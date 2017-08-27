@@ -36,6 +36,7 @@ public class DefineManager {
             FORECAST_DATA_RECEIVED_ERROR = 5,
             WRONG_FORECAST_DAY_ACCEPTED = 6,
             TOO_SMALL_DATA_ACCEPTED = 7,
+            DATA_SAVE = 8,
 
             CONNECTION_SUCCESSFULL = 200;
 }

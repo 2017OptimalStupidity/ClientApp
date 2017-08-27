@@ -16,6 +16,7 @@ import java.util.Date;
 import static com.machine.i2max.i2max.Settings.DefineManager.BUNDLE_DATE;
 import static com.machine.i2max.i2max.Settings.DefineManager.BUNDLE_RESULT;
 import static com.machine.i2max.i2max.Settings.DefineManager.BUNDLE_STATUS;
+import static com.machine.i2max.i2max.Settings.DefineManager.DATA_SAVE;
 import static com.machine.i2max.i2max.Settings.DefineManager.DISABLE_PULLING_PROGRESS;
 import static com.machine.i2max.i2max.Settings.DefineManager.FORECAST_DATA_RECEIVED;
 import static com.machine.i2max.i2max.Settings.DefineManager.FORECAST_DATA_RECEIVED_ERROR;
@@ -67,6 +68,10 @@ public class I2maxController {
         PrintLog("I2maxController", "UploadData", "size of selling data: " + sizeOfSellingData, LOG_LEVEL_INFO);
         if(forecastDay >= sizeOfSellingData || forecastDay <= 0 ) {
             PrintLog("I2maxController", "UploadData", "Wrong forcast day accepted", LOG_LEVEL_WARN);
+            if(sizeOfSellingData == 1) {
+                handlingWithController.sendEmptyMessage(DATA_SAVE);
+                return;
+            }
             handlingWithController.sendEmptyMessage(WRONG_FORECAST_DAY_ACCEPTED);
             return;
         }
