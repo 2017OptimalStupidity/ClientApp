@@ -221,6 +221,7 @@ public class I2maxMain extends AppCompatActivity {
                 case INVISIBLE_UPLOADING_PROGRESS:
                     AddNewProcessData(msg.arg1);
                     InvisibleProgress();
+                    ShowSnackBarMessage(getString(R.string.UploadSuccess));
                     break;
                 case DISABLE_PULLING_PROGRESS:
                     DisablePullingProcess();

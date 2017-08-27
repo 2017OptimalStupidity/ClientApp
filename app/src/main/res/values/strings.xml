@@ -16,4 +16,5 @@
     <string name="ProcessReturnsError">Forecast data received with error.</string>
     <string name="WrongForecastDayAccepted">Change forecast data to > 0 or smaller</string>
     <string name="TooSmallDataAccepted">The data will calculate after the data getting bigger.</string>
+    <string name="UploadSuccess">The data is uploaded.</string>
 </resources>
