@@ -18,6 +18,7 @@ import static com.machine.i2max.i2max.Settings.DefineManager.BUNDLE_RESULT;
 import static com.machine.i2max.i2max.Settings.DefineManager.BUNDLE_STATUS;
 import static com.machine.i2max.i2max.Settings.DefineManager.DISABLE_PULLING_PROGRESS;
 import static com.machine.i2max.i2max.Settings.DefineManager.FORECAST_DATA_RECEIVED;
+import static com.machine.i2max.i2max.Settings.DefineManager.FORECAST_DATA_RECEIVED_ERROR;
 import static com.machine.i2max.i2max.Settings.DefineManager.INVISIBLE_UPLOADING_PROGRESS;
 import static com.machine.i2max.i2max.Settings.DefineManager.LOG_LEVEL_ERROR;
 import static com.machine.i2max.i2max.Settings.DefineManager.LOG_LEVEL_INFO;
@@ -120,6 +121,7 @@ public class I2maxController {
     public void UpdateLineChartView(Bundle forecastBundleData) {
         if(forecastBundleData == null) {
             PrintLog("I2maxController", "UpdateLineChartView", "bundle data is null", LOG_LEVEL_WARN);
+            handlingWithController.sendEmptyMessage(FORECAST_DATA_RECEIVED_ERROR);
             return;
         }
         String status = forecastBundleData.getString(BUNDLE_STATUS);

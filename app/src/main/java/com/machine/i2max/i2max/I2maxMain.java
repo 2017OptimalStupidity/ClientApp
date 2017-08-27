@@ -26,6 +26,7 @@ import com.machine.i2max.i2max.Control.RealmController;
 
 import static com.machine.i2max.i2max.Settings.DefineManager.DISABLE_PULLING_PROGRESS;
 import static com.machine.i2max.i2max.Settings.DefineManager.FORECAST_DATA_RECEIVED;
+import static com.machine.i2max.i2max.Settings.DefineManager.FORECAST_DATA_RECEIVED_ERROR;
 import static com.machine.i2max.i2max.Settings.DefineManager.INVISIBLE_UPLOADING_PROGRESS;
 import static com.machine.i2max.i2max.Settings.DefineManager.LOG_LEVEL_ERROR;
 import static com.machine.i2max.i2max.Settings.DefineManager.LOG_LEVEL_INFO;
@@ -227,6 +228,9 @@ public class I2maxMain extends AppCompatActivity {
                     break;
                 case PRINT_PROCESS_NOT_READY:
                     ShowSnackBarMessage(getString(R.string.ProcessNotReady));
+                    break;
+                case FORECAST_DATA_RECEIVED_ERROR:
+                    ShowSnackBarMessage(getString(R.string.ProcessReturnsError));
                 default:
                     break;
             }
