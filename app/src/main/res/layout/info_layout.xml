@@ -2,11 +2,51 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent" android:layout_height="match_parent"
     android:id="@+id/infoView"
+    android:background="@color/skyBlue"
     >
 
     <TextView
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:text="test"
+        android:text="i2max project"
+        android:textSize="40dp"
+        android:textColor="@color/white"
+        android:id="@+id/title"
+        />
+    <TextView
+        android:layout_below="@+id/title"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="Calculate forecast data based on selling datas."
+        android:textSize="20dp"
+        android:textColor="@color/white"
+        android:id="@+id/subTitle"
+        />
+    <TextView
+        android:layout_below="@+id/subTitle"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="Open sources"
+        android:textSize="30dp"
+        android:textColor="@color/white"
+        android:id="@+id/titleOfOpenSource"
+        />
+    <TextView
+        android:layout_below="@+id/titleOfOpenSource"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="https://github.com/liaohuqiu/android-Ultra-Pull-To-Refresh
+\n
+https://github.com/diogobernardino/WilliamChart
+\n
+https://github.com/castorflex/SmoothProgressBar
+\n
+https://github.com/florent37/MaterialTextField
+\n
+https://github.com/square/retrofit
+\n
+https://github.com/realm/realm-java"
+        android:textSize="15dp"
+        android:textColor="@color/white"
         />
 </RelativeLayout>
