@@ -12,6 +12,7 @@ import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.webkit.WebView;
 import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ProgressBar;
@@ -34,6 +35,7 @@ import static com.machine.i2max.i2max.Settings.DefineManager.LOG_LEVEL_INFO;
 import static com.machine.i2max.i2max.Settings.DefineManager.LOG_LEVEL_WARN;
 import static com.machine.i2max.i2max.Settings.DefineManager.NOT_AVAILABLE;
 import static com.machine.i2max.i2max.Settings.DefineManager.PRINT_PROCESS_NOT_READY;
+import static com.machine.i2max.i2max.Settings.DefineManager.SERVER_DOMAIN_NAME;
 import static com.machine.i2max.i2max.Settings.DefineManager.TOO_SMALL_DATA_ACCEPTED;
 import static com.machine.i2max.i2max.Settings.DefineManager.VISIBLE_UPLOADING_PROGRESS;
 import static com.machine.i2max.i2max.Settings.DefineManager.WRONG_FORECAST_DAY_ACCEPTED;
@@ -53,6 +55,7 @@ public class I2maxMain extends AppCompatActivity {
     RealmController realmController;
     PullRefreshLayout swipeRefreshLayout;
     LineChartView lineChart;
+    WebView webView;
 
     int pullForecastDataProcessId;
 
@@ -173,6 +176,7 @@ public class I2maxMain extends AppCompatActivity {
         btnUploadData = (ActionProcessButton) shareView.findViewById(R.id.btnUploadData);
         swipeRefreshLayout = (PullRefreshLayout) graphView.findViewById(R.id.swipeRefreshLayout);
         lineChart = (LineChartView)graphView.findViewById(R.id.lineChart);
+        webView = (WebView)homePageView.findViewById(R.id.webView);
 
         btnUploadData.setMode(ActionProcessButton.Mode.ENDLESS);
         swipeRefreshLayout.setRefreshStyle(PullRefreshLayout.STYLE_SMARTISAN);
@@ -194,6 +198,9 @@ public class I2maxMain extends AppCompatActivity {
         DrawForecastGraph();
 
         pullForecastDataProcessId = NOT_AVAILABLE;
+
+        webView.getSettings().setJavaScriptEnabled(true);
+        webView.loadUrl("http://" + SERVER_DOMAIN_NAME);
     }
 
     public void VisibleProgress() {

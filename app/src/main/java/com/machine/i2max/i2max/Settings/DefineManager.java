@@ -6,7 +6,7 @@ package com.machine.i2max.i2max.Settings;
 
 public class DefineManager {
     public static final String
-            SERVER_DOMAIN_NAME = "211.249.49.198:5000",
+            SERVER_DOMAIN_NAME = "i2max-ml.xyz:5000",
             COMMUNICATE_CONTENT_TYPE = "application/json",
             APP_NAME = "i2max",
 
